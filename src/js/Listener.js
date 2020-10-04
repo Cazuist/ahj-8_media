@@ -90,7 +90,6 @@ export default class Listener {
                 this.modals.errModal.show();
                 this.modals.errModal.setMessage(message);
               });
-
           } else {
             fn.recordStream(this, 'video', VideoBlock, { latitude, longitude })
               .then((recorder) => {
