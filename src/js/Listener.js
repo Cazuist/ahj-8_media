@@ -60,6 +60,7 @@ export default class Listener {
       if (modalType === 'errModal') {
         this.modals.errModal.hide();
         this.switchRecordPanel();
+        this.previewEl.classList.add('hidden');
         return;
       }
 
@@ -78,12 +79,30 @@ export default class Listener {
               this.textFieldEl.value, { latitude, longitude });
             box.init();
           } else if (this.addingBlock === 'audio') {
-            fn.recordStream(this, 'audio', AudioBlock, { longitude, latitude });
-            this.timer.start();
+            fn.recordStream(this, 'audio', AudioBlock, { latitude, longitude })
+              .then((recorder) => {
+                recorder.start();
+                this.timer.start();
+                this.addingBlock = 'null';
+              })
+              .catch((error) => {
+                const { message } = error;
+                this.modals.errModal.show();
+                this.modals.errModal.setMessage(message);
+              });
+
           } else {
-            this.previewEl.classList.remove('hidden');
-            fn.recordStream(this, 'video', VideoBlock, { longitude, latitude });
-            this.timer.start();
+            fn.recordStream(this, 'video', VideoBlock, { latitude, longitude })
+              .then((recorder) => {
+                recorder.start();
+                this.timer.start();
+                this.addingBlock = 'null';
+              })
+              .catch((error) => {
+                const { message } = error;
+                this.modals.errModal.show();
+                this.modals.errModal.setMessage(message);
+              });
           }
 
           this.addingBlock = null;
@@ -172,6 +191,7 @@ export default class Listener {
 
       if (classList.contains('camera-icon')) {
         this.addingBlock = 'video';
+        this.previewEl.classList.remove('hidden');
 
         navigator.geolocation.getCurrentPosition(
           ({ coords }) => {

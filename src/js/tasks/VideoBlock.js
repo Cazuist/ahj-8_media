@@ -20,10 +20,9 @@ export default class AudioBlock {
     return `
         <div class="media-block" data-id="${this.id}">
           <div class="content-block">            
-            <video class="video-task" controls="controls" poster="">
+            <video class="video-task" src=${this.src} controls="controls" poster="">
               <source src=${this.src} type="video/ogg; codecs=avc1.42E01E, mp4a.40.2">
               <source src=${this.src} type="video/ogg; codecs=avc1.42E01E, mp4a.40.2">
-              Тег video не поддерживается вашим браузером.
             </video>
 
             <div class="coords-box">

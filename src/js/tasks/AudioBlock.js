@@ -24,7 +24,6 @@ export default class AudioBlock {
             <audio controls>
               <source src=${this.src} type="audio/ogg; codecs=vorbis">
               <source src=${this.src} type="audio/mpeg">
-              Тег audio не поддерживается вашим браузером.
             </audio>
 
             <div class="coords-box">
