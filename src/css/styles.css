@@ -197,6 +197,10 @@ video {
   cursor: pointer;
 }
 
+.video-task {
+  width: 100%;
+}
+
 .text-circle {
   background-color: tan;
 }
